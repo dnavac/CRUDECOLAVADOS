@@ -16,7 +16,7 @@ class ClientAndContainerTest extends TestCase
             'name' => 'Cliente de Prueba',
             'document' => '900123456-7',
             'phone' => '3001234567',
-            'email' => 'cliente@gmail.com',
+            'email' => 'cliente@example.com',
             'address' => 'Calle 1 # 2-3',
         ], $overrides));
     }

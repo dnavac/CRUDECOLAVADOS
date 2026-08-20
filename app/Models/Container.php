@@ -23,6 +23,7 @@ class Container extends Model
         'client_id',
     ];
 
+    //Un contenedor pertenece a un cliente(N:1)
     public function client()
     {
         return $this->belongsTo(Client::class);
