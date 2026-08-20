@@ -35,7 +35,14 @@ class ClientController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:10',
             'address' => 'required|string|max:255',
-        ]);
+        ],
+        [
+            'document.unique' => 'El documento del cliente ya está en uso. Por favor, elige otro.',
+            'document.max' => 'El documento del cliente no puede tener más de 50 caracteres.',
+            'email.email' => 'El correo electrónico no es válido.',
+            'phone.max' => 'El número de teléfono no puede tener más de 10 dígitos.',
+        ]
+        );
 
         Client::create($validated);
 
@@ -70,7 +77,14 @@ class ClientController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:10',
             'address' => 'required|string|max:255',
-        ]);
+        ], 
+        [
+            'document.unique' => 'El documento del cliente ya está en uso. Por favor, elige otro.',
+            'document.max' => 'El documento del cliente no puede tener más de 50 caracteres.',
+            'email.email' => 'El correo electrónico no es válido.',
+            'phone.max' => 'El número de teléfono no puede tener más de 10 dígitos.',
+        ]
+        );
 
         $client->update($validated);
 

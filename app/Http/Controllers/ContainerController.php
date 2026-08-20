@@ -40,14 +40,23 @@ class ContainerController extends Controller
 
         $validated = $request->validate([
             'code' => 'required|string|max:50|unique:containers,code',
-            'type' => 'required|string|in:seco,Isotanque',
+            'type' => 'required|string|in:Seco,Isotanque',
             'capacity' => 'required|numeric|min:0',
             'status' => 'nullable|string|in:Almacenado,En lavado,En reparación',
             'client_id' => 'required|exists:clients,id',
-        ]);
+        ],
+        [
+            'code.unique' => 'El código del contenedor ya está en uso. Por favor, elige otro.',
+            'code.max' => 'El código del contenedor no puede tener más de 50 caracteres.',
+            'type.in' => 'El tipo de contenedor debe ser "Seco" o "Isotanque".',
+            'capacity.min' => 'La capacidad del contenedor debe ser un número positivo.',
+            'status.in' => 'El estado del contenedor debe ser "Almacenado", "En lavado" o "En reparación".',
+            'client_id.exists' => 'El cliente seleccionado no existe.',
+        ]
+        );
 
         //Seco NUNCA puede ser "En lavado"
-        if($request-> type == "seco" && $request->status === "En lavado"){
+        if ($request->type === 'Seco' && $request->status === 'En lavado') {
             return back()->withErrors(['status' => 'Un contenedor seco no puede estar en estado "En lavado".'])->withInput();
         }
         Container::create($validated);
@@ -79,14 +88,22 @@ class ContainerController extends Controller
     {
         $validated = $request->validate([
             'code'      => 'required|string|max:50|unique:containers,code,' . $container->id,
-            'type'      => 'required|in:seco,Isotanque',
+            'type'      => 'required|in:Seco,Isotanque',
             'capacity'  => 'required|numeric|min:0',
             'status'    => 'required|in:Almacenado,En lavado,En reparación',
             'client_id' => 'required|exists:clients,id',
-        ]);
+        ],
+        [
+            'code.unique' => 'El código del contenedor ya está en uso. Por favor, elige otro.',
+            'type.in' => 'El tipo de contenedor debe ser "Seco" o "Isotanque".',
+            'capacity.min' => 'La capacidad del contenedor debe ser un número positivo.',
+            'status.in' => 'El estado del contenedor debe ser "Almacenado", "En lavado" o "En reparación".',
+            'client_id.exists' => 'El cliente seleccionado no existe.',
+        ]
+        );
 
         //Seco NUNCA puede ser "En lavado"
-        if ($request->type === 'seco' && $request->status === 'En lavado') {
+        if ($request->type === 'Seco' && $request->status === 'En lavado') {
             return back()->withErrors([
                 'status' => 'Un contenedor de tipo seco jamás puede guardarse con el estado "En lavado".'
             ])->withInput();
