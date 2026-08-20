@@ -1,58 +1,313 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplicación web de gestión
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web desarrollada con Laravel para administrar clientes y contenedores relacionados. Incluye operaciones CRUD, validaciones, relaciones Eloquent, migraciones, seeders y pruebas automatizadas.
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Clientes
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Crear, listar, consultar, editar y eliminar clientes.
+- Validar que el documento no esté repetido.
+- Mostrar la cantidad de contenedores asociados a cada cliente.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Contenedores
 
-## Learning Laravel
+- Crear, listar, consultar, editar y eliminar contenedores.
+- Asociar cada contenedor con un cliente.
+- Validar que el código del contenedor no esté repetido.
+- Manejar los tipos `Seco` e `Isotanque`.
+- Manejar los estados `Almacenado`, `En lavado` y `En reparación`.
+- Impedir que un contenedor `Seco` sea guardado con estado `En lavado`.
+- Usar `Almacenado` como estado predeterminado.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tecnologías
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.3 o superior.
+- Laravel 13.
+- SQLite como base de datos predeterminada.
+- Composer.
+- Blade para las vistas.
+- Bootstrap cargado desde CDN.
+- PHPUnit para pruebas automatizadas.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+La aplicación utiliza Blade para renderizar las páginas. En el estado actual no requiere Node.js, npm, Vite ni `npm run dev` para instalarse o ejecutarse.
 
-## Agentic Development
+## Requisitos previos
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Verifica que la máquina tenga instalado PHP y Composer:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php --version
+composer --version
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Se recomienda utilizar:
 
-## Contributing
+- PHP 8.3 o superior.
+- Composer 2.
+- SQLite habilitado en PHP.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Instalar PHP
 
-## Code of Conduct
+Descarga PHP desde [php.net](https://www.php.net/downloads.php) o utiliza el gestor de paquetes de tu sistema operativo.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+En Windows puedes utilizar herramientas como Laragon, XAMPP o una instalación independiente de PHP. Asegúrate de agregar PHP al `PATH` del sistema.
 
-## Security Vulnerabilities
+### Instalar Composer
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Descarga Composer desde [getcomposer.org](https://getcomposer.org/download/).
 
-## License
+Después de instalarlo, valida la instalación:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer --version
+```
+
+### Instalar Laravel
+
+Para ejecutar este proyecto no es necesario instalar Laravel globalmente. Laravel se instala como dependencia local del proyecto mediante Composer.
+
+Si deseas instalar también el instalador global de Laravel, puedes hacerlo con:
+
+```bash
+composer global require laravel/installer
+```
+
+Esto es opcional y no reemplaza la instalación de las dependencias del proyecto.
+
+## Instalación en otra máquina
+
+### 1. Descargar el proyecto
+
+Clona el repositorio y entra en la carpeta del proyecto:
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd <CARPETA_DEL_PROYECTO>
+```
+
+Reemplaza los valores entre `< >` con los datos reales del repositorio.
+
+### 2. Instalar las dependencias de PHP
+
+```bash
+composer install
+```
+
+### 3. Crear el archivo de configuración
+
+En macOS o Linux:
+
+```bash
+cp .env.example .env
+```
+
+En Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+No copies el archivo `.env` de otra máquina. Cada instalación debe tener su propia configuración local.
+
+### 4. Generar la clave de la aplicación
+
+```bash
+php artisan key:generate
+```
+
+### 5. Configurar SQLite
+
+La configuración predeterminada utiliza SQLite. Si el archivo de base de datos no existe, créalo.
+
+En macOS o Linux:
+
+```bash
+touch database/database.sqlite
+```
+
+En Windows PowerShell:
+
+```powershell
+New-Item database/database.sqlite -ItemType File
+```
+
+En `.env`, confirma la conexión:
+
+```dotenv
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+Si tu instalación requiere una ruta absoluta, configura la ruta completa del archivo SQLite.
+
+También puedes utilizar MySQL o PostgreSQL modificando las variables `DB_*` del archivo `.env` y creando previamente la base de datos.
+
+### 6. Ejecutar las migraciones
+
+```bash
+php artisan migrate
+```
+
+Las migraciones crean las tablas de la aplicación y las tablas internas requeridas por Laravel.
+
+### 7. Cargar datos de prueba
+
+El seeder genera:
+
+- 10 clientes.
+- 30 contenedores.
+- Relaciones entre clientes y contenedores.
+- Estados válidos de acuerdo con el tipo de contenedor.
+
+Ejecuta:
+
+```bash
+php artisan db:seed
+```
+
+Para reconstruir la base de datos desde cero y volver a cargar los datos de prueba:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+> `migrate:fresh --seed` elimina los datos existentes de la base de datos configurada. Utilízalo únicamente cuando quieras reiniciar el entorno.
+
+### 8. Iniciar la aplicación
+
+```bash
+php artisan serve
+```
+
+La aplicación estará disponible normalmente en:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Ejecutar las pruebas
+
+Para ejecutar toda la suite PHPUnit:
+
+```bash
+php artisan test
+```
+
+También puedes ejecutar PHPUnit directamente:
+
+```bash
+vendor/bin/phpunit
+```
+
+Las pruebas utilizan SQLite en memoria y no modifican la base de datos local configurada en `.env`.
+
+Las pruebas cubren, entre otros casos:
+
+- Creación de clientes.
+- Conteo de contenedores asociados.
+- Documentos duplicados.
+- Creación de contenedores secos.
+- Estado predeterminado de nuevos contenedores.
+- Restricción de `Seco` con estado `En lavado`.
+- Permiso de `Isotanque` con estado `En lavado`.
+- Redirección inicial de la aplicación.
+
+## Comandos útiles
+
+Limpiar la caché de configuración:
+
+```bash
+php artisan config:clear
+```
+
+Limpiar todas las cachés:
+
+```bash
+php artisan optimize:clear
+```
+
+Consultar las rutas disponibles:
+
+```bash
+php artisan route:list
+```
+
+Consultar el estado de las migraciones:
+
+```bash
+php artisan migrate:status
+```
+
+Formatear el código PHP con Laravel Pint:
+
+```bash
+vendor/bin/pint
+```
+
+## Estructura principal
+
+```text
+app/
+├── Http/Controllers/
+│   ├── ClientController.php
+│   └── ContainerController.php
+└── Models/
+    ├── Client.php
+    └── Container.php
+
+database/
+├── factories/
+├── migrations/
+└── seeders/
+
+resources/views/
+├── clients/
+├── containers/
+└── layouts/
+
+routes/
+└── web.php
+
+tests/
+├── Feature/
+└── Unit/
+```
+
+## Solución de problemas
+
+### `composer` no es reconocido
+
+Composer no está instalado o no fue agregado al `PATH`. Instálalo nuevamente y reinicia la terminal.
+
+### `php` no es reconocido
+
+PHP no está instalado o no fue agregado al `PATH`. Verifica la instalación y la variable de entorno.
+
+### Error relacionado con `APP_KEY`
+
+Ejecuta:
+
+```bash
+php artisan key:generate
+```
+
+### Error de conexión con SQLite
+
+Verifica que exista `database/database.sqlite` y que `.env` tenga:
+
+```dotenv
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+Después ejecuta:
+
+```bash
+php artisan config:clear
+php artisan migrate
+```
+
+### Error de permisos en `storage` o `bootstrap/cache`
+
+Laravel necesita permisos de escritura en esas carpetas. Ajusta los permisos de acuerdo con el sistema operativo y el servidor web utilizado.
